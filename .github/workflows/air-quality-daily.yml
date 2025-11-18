@@ -69,7 +69,7 @@ jobs:
               continue
             }
 
-            echo "Completed location: $LOCATION_ID"
+            echo "Completed location: $IDX"
             echo ""
           done
         
