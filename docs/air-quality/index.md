@@ -4,14 +4,27 @@
 
 {% include air-quality.html %}
 
-![Forecast](./assets/img/pm25_forecast.png)
+![Forecast](./assets/img/pm25_forecast_Trondheim_Elgseter.png)
+Forecast for Elgseter
 
+![Forecast](./assets/img/pm25_forecast_Trondheim_Omkjoringsvegen.png)
+Forecast for Omkjoringsvegen
 
-There is also a Python program to interact with the air quality ML system using language (text, voice),
-powered by a [function-calling LLM](https://www.hopsworks.ai/dictionary/function-calling-with-llms).
+![Forecast](./assets/img/pm25_forecast_Trondheim_Asveienskole.png)
+Forecast for Asveien Skole
 
 # Model Performance Monitoring
 
 1-Day Hindcast: Predictions vs Outcomes
 
 ![Hindcast](./assets/img/pm25_hindcast_1day.png)
+
+
+![Hindcast](./assets/img/pm25_hindcast_1day_Trondheim_Elgseter.png)
+Hindcast for Elgseter
+
+![Hindcast](./assets/img/pm25_hindcast_1day_Trondheim_Omkjoringsvegen.png)
+Hindcast for Omkjoringsvegen
+
+![Hindcast](./assets/img/pm25_hindcast_1day_Trondheim_Asveienskole.png)
+Hindcast for Asveien Skole

@@ -1,43 +1,6 @@
-# mlfs-book
-O'Reilly book - Building Machine Learning Systems with a feature store: batch, real-time, and LLMs
+# Lab 1
+We have implemented a pipeline for predicting the levels of PM2.5 in the air in Trondheim Norway. This using public available particle sensor data and weather data. It runs daily by fetching new weather forecasts to predict the PM2.5 levels and creates both a forecast and a hindcast plot. Each particle sensor in the city has its own trained model.
 
+To run the pipeline, first one needs to manually run the feature backfill notebook (1_air_quality_feature_backfill.ipynb) using historical particle sensor data downloaded from https://aqicn.org/. Then one has to run the training pipeline (3_air_quality_training_pipeline.ipynb) manually for that same location. Lastly add all the used locations to locations.json and the Github Actions will automatically run the feature pipeline and batch inference daily.
 
-## ML System Examples
-
-
-[Dashboards for Example ML Systems](https://featurestorebook.github.io/mlfs-book/)
-
-
-# Run Air Quality Tutorial
-
-See [tutorial instructions here](https://docs.google.com/document/d/1YXfM1_rpo1-jM-lYyb1HpbV9EJPN6i1u6h2rhdPduNE/edit?usp=sharing)
-    
-# Create a conda or virtual environment for your project before you install the requirements
-    pip install -r requirements.txt
-
-
-##  Run pipelines with make commands
-
-    make aq-backfill
-    make aq-features
-    make aq-train
-    make aq-inference
-    make aq-clean
-
-or 
-    make aq-all
-
-
-
-## Feldera
-
-
-mkdir -p /tmp/c.app.hopsworks.ai
-ln -s  /tmp/c.app.hopsworks.ai ~/hopsworks
-docker run -p 8080:8080 \
-  -v ~/hopsworks:/tmp/c.app.hopsworks.ai \
-  --tty --rm -it ghcr.io/feldera/pipeline-manager:latest
-
-
-## Introduction to ML
-I wrote a brief introduction to machine learning [here](./introduction_to_supervised_ml.pdf)
+The dashboard is available at https://robertbroman.github.io/mlfs-book/air-quality/
