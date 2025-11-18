@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "aqicn_url": "https://api.waqi.info/feed/@2663",
+    "country": "Norway",
+    "city": "Trondheim",
+    "street": "Elgseter"
+  },
+  {
+    "id": 2,
+    "aqicn_url": "https://api.waqi.info/feed/@13460",
+    "country": "Norway",
+    "city": "Trondheim",
+    "street": "Omkjoringsvegen"
+  },
+  {
+    "id": 3,
+    "aqicn_url": "https://api.waqi.info/feed/@13459",
+    "country": "Norway",
+    "city": "Trondheim",
+    "street": "Asveien skole"
+  },
+  {
+    "id": 4,
+    "aqicn_url": "https://api.waqi.info/feed/A363613",
+    "country": "Norway",
+    "city": "Østbyen",
+    "street": "Stadsing Dahls gate"
+  },
+  {
+    "id": 5,
+    "aqicn_url": "https://api.waqi.info/feed/A61417",
+    "country": "Norway",
+    "city": "Lerkendal",
+    "street": "Harald Bothners veg"
+  } 
+]

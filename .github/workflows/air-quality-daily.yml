@@ -27,12 +27,53 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: execute python workflows from bash script
+      - name: execute python workflows from bash script (multiple locations)
         env:
           HOPSWORKS_API_KEY: ${{ secrets.HOPSWORKS_API_KEY }}
         run: |
-          ipython notebooks/airquality/2_air_quality_feature_pipeline.ipynb
-          ipython notebooks/airquality/4_air_quality_batch_inference.ipynb
+          set -euo pipefail
+          LOC_JSON="notebooks/airquality/locations.json"
+          if [ ! -f "$LOC_JSON" ]; then
+            echo "Locations file not found: $LOC_JSON"
+            exit 1
+          fi
+
+          LEN=$(jq length "$LOC_JSON")
+          if [ "$LEN" -eq 0 ]; then
+            echo "No locations in $LOC_JSON"
+            exit 1
+          fi
+
+          echo "Found $LEN locations. Running for each location..."
+
+          for IDX in $(seq 0 $((LEN - 1))); do
+            echo "=== LOCATION INDEX: $IDX ==="
+            LOC=$(jq -c ".[$IDX]" "$LOC_JSON")
+            CITY=$(echo "$LOC" | jq -r '.city // empty')
+            STREET=$(echo "$LOC" | jq -r '.street // empty')
+            COUNTRY=$(echo "$LOC" | jq -r '.country // empty')
+            AQICN_URL=$(echo "$LOC" | jq -r '.aqicn_url // empty')
+
+            echo "Running notebooks for: index=$IDX aqicn_url=$AQICN_URL city=$CITY street=$STREET country=$COUNTRY"
+
+            export CITY STREET COUNTRY AQICN_URL LOCATION_INDEX=$IDX
+
+            ipython notebooks/airquality/2_air_quality_feature_pipeline.ipynb || {
+              echo "Feature pipeline FAILED for $LOCATION_ID (index $IDX)"; 
+              # continue to next location (remove 'continue' and 'exit 1' to fail fast)
+              continue
+            }
+
+            ipython notebooks/airquality/4_air_quality_batch_inference.ipynb || {
+              echo "Batch inference FAILED for $LOCATION_ID (index $IDX)";
+              continue
+            }
+
+            echo "Completed location: $LOCATION_ID"
+            echo ""
+          done
+        
+
       - name: github pages publish
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
